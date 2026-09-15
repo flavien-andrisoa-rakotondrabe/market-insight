@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 import {
   Bell,
   CircleDot,
@@ -20,31 +20,32 @@ import {
   PanelLeftOpen,
   Search,
   ArrowUpRight,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
+} from '@/components/ui/sheet'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/select'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { navItems } from '@/lib/mock/data';
+} from '@/components/ui/tooltip'
+import { navItems } from '@/lib/mock/data'
+import { ModeToggle } from '../ModeToggle'
 
 const iconMap = {
   LayoutDashboard,
@@ -56,19 +57,19 @@ const iconMap = {
   Sparkles,
   FileBarChart,
   Settings2,
-};
+}
 const pageNames: Record<string, string> = Object.fromEntries(
   navItems.map((item) => [item.href, item.label]),
-);
+)
 
 function Navigation({
   collapsed = false,
   onNavigate,
 }: {
-  collapsed?: boolean;
-  onNavigate?: () => void;
+  collapsed?: boolean
+  onNavigate?: () => void
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname()
   return (
     <nav className="flex flex-col gap-1">
       <p
@@ -77,8 +78,8 @@ function Navigation({
         Navigation
       </p>
       {navItems.map((item) => {
-        const Icon = iconMap[item.icon as keyof typeof iconMap];
-        const active = pathname === item.href;
+        const Icon = iconMap[item.icon as keyof typeof iconMap]
+        const active = pathname === item.href
         return (
           <Tooltip key={item.href}>
             <TooltipTrigger
@@ -107,17 +108,17 @@ function Navigation({
               <TooltipContent side="right">{item.label}</TooltipContent>
             )}
           </Tooltip>
-        );
+        )
       })}
     </nav>
-  );
+  )
 }
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const title = pageNames[pathname] ?? "Vue d'ensemble";
+  const pathname = usePathname()
+  const [collapsed, setCollapsed] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const title = pageNames[pathname] ?? "Vue d'ensemble"
 
   return (
     <TooltipProvider>
@@ -259,6 +260,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               >
                 {collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
               </Button>
+              <ModeToggle />
               <Avatar className="size-8">
                 <AvatarFallback className="bg-primary text-xs text-primary-foreground">
                   CL
@@ -270,29 +272,27 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </div>
     </TooltipProvider>
-  );
+  )
 }
 
 export function SectionHeader({
-  title,
   description,
   action,
 }: {
-  title: string;
-  description?: string;
-  action?: React.ReactNode;
+  title: string
+  description?: string
+  action?: React.ReactNode
 }) {
   return (
     <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
       <div>
-        <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
         {description && (
           <p className="mt-1 text-sm text-muted-foreground">{description}</p>
         )}
       </div>
       {action}
     </div>
-  );
+  )
 }
 export function SearchBar() {
   return (
@@ -303,5 +303,5 @@ export function SearchBar() {
         placeholder="Rechercher..."
       />
     </div>
-  );
+  )
 }
